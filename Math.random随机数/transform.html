@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/jquery-easing/1.4.1/jquery.easing.js"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 300px;
+				height: 200px;
+				background: #215F1E;
+				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.box>div{
+					width: 50px;
+					height: 100px;
+					border: 1px solid white;
+					color: white;
+					margin-left: 20px;
+			}
+			span{
+				display: inline-block;
+				width: 50px;
+				text-align: center;
+				line-height: 100px;
+			}
+			button{
+				align-self: flex-end;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="first">
+				<span>1</span>
+			</div>
+			<div class="second">
+				<span>2</span>
+			</div>
+			<div class="thirth">
+				<span>3</span>
+			</div>
+			<button type="button">Go!</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var move = null;
+		var isBegin = false;
+		jQuery.fn.extend({
+			slots: function (b, c, d) {
+				if (isBegin) {
+					return false
+				}
+				isBegin = true;
+				$(this).css("backgroundPositionY", 0);
+				$(this).each(function (e) {
+					setTimeout(() => {
+						$(this).anmate({
+							backgroundPositionY: (((b * 50) - (b * c[e])) / 150) + "rem"
+						},{
+							duration: 5000 + e * 1000,
+							easing: 'easeInOutCirc',
+							complete: function () {
+								if (e == 2) {
+									isBegin = false;
+									d()
+								}
+							}
+						},e * 100)
+					})
+				})
+			}
+		})
+		$('body').on('click','isBtnNumber',function() {
+			$('').slots(lhjHeight,r,function(){
+				//停止转动的回调
+			})
+		})
+		
+	</script>
+</html>
